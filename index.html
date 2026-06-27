@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>SUPER-ALE | Pietro Licciardi</title>
+<title>SUPER-ALE | Pietro Licciardi — Fase 4</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--navy:#00225a;--blu:#2c42a8;--oro:#f9c108;--rosso:#9e1b2b;--blubg:#e8f0fe;--orobg:#fef9e7;--rossbg:#fce8e8;--azz:#f0f4fa}
@@ -42,6 +42,7 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 .bg-B{background:var(--blubg)}.bg-C{background:var(--orobg)}.bg-P{background:var(--rossbg)}
 .card-body{padding:8px 10px 10px;display:none}.card-body.open{display:block}
 .card-info{font-size:11px;color:#64748b;margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap}
+.target-kg{background:var(--blubg);color:var(--blu);padding:6px 10px;border-radius:6px;font-size:12px;font-weight:700;margin-bottom:8px;border:1px solid rgba(44,66,168,.2)}
 .input-row{display:flex;align-items:center;gap:5px}
 .input-row input[type=number]{width:55px;padding:7px 3px;border:2px solid rgba(44,66,168,.15);border-radius:6px;font-size:15px;font-weight:700;text-align:center;outline:none;color:var(--navy)}
 .input-row .x{color:#94a3b8;font-weight:700}
@@ -67,6 +68,8 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 .empty{padding:36px 14px;text-align:center;color:#94a3b8}
 .empty .icon{font-size:38px;margin-bottom:8px}
 .footer{padding:14px;text-align:center;font-size:10px;color:#94a3b8}
+.phase-banner{background:linear-gradient(135deg,var(--navy),var(--blu));color:#fff;padding:10px 14px;text-align:center;font-size:11px;font-weight:600}
+.phase-banner b{color:var(--oro)}
 </style>
 </head>
 <body>
@@ -74,9 +77,10 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
   <div class="logo">SA</div>
   <div class="header-txt">
     <h1>Pietro Licciardi</h1>
-    <p id="headerSub">Fase 3</p>
+    <p id="headerSub">Fase 4</p>
   </div>
 </div>
+<div class="phase-banner">⚡ <b>FASE 4</b> — Intensità @75÷85% · Schema di avvitamento · 6 settimane</div>
 <div class="nav">
   <button class="active" onclick="switchView('scheda')">📋 Scheda</button>
   <button onclick="switchView('riepilogo')">📊 Riepilogo</button>
@@ -88,14 +92,22 @@ body{font-family:-apple-system,system-ui,sans-serif;background:#f8fafc;max-width
 </div>
 <div id="schedaView"></div>
 <div id="riepilogoView" style="display:none"></div>
-<div class="footer">Metodo SUPER-ALE · Fase 3 — Volume @70% · Push/Pull/Upper/Legs</div>
+<div class="footer">Metodo SUPER-ALE · Fase 4 — Intensità @75÷85% · Push/Pull/Upper/Legs</div>
 <script>
 const CLIENT_NAME = "Pietro Licciardi";
-const PHASE_LABEL = "Fase 3 — Volume @70% (Push/Pull/Upper/Legs)";
-const PHASE_SHORT = "Fase 3";
-const STORAGE_KEY = "superale-pietro-licciardi-f3-ppul";
+const PHASE_LABEL = "Fase 4 — Intensità @75÷85% (Push/Pull/Upper/Legs)";
+const PHASE_SHORT = "Fase 4";
+const STORAGE_KEY = "superale-pietro-licciardi-f4-ppul";
 const NUM_WEEKS = 6;
 const WEEKS = Array.from({length: NUM_WEEKS}, (_, i) => i + 1);
+
+// Schema avvitamento Fase 4
+// W1: 4×6 @75% | W2: 5×5 @77.5% | W3: 6×4 @80% | W4: 5×3 @82.5% | W5: 4×3 @85% | W6: Test 1RM
+const PROG_F4 = ["4x6 @75%","5x5 @77.5%","6x4 @80%","5x3 @82.5%","4x3 @85%","Test 1RM"];
+const KG_PANCA   = ["67.5","70","72.5","75","77.5","TEST"];
+const KG_SQUAT   = ["112.5","115","120","125","127.5","TEST"];
+const KG_STACCO  = ["75","77.5","80","82.5","85","TEST"];
+const KG_MILITARY = ["32.5","35","35","37.5","37.5","TEST"];
 
 const SESSIONS = [
   {
@@ -103,13 +115,13 @@ const SESSIONS = [
     name: "PUSH",
     sub: "Petto / Spalle / Tricipiti",
     ex: [
-      {id:"pu1",t:"B",n:"Panca Piana",sxr:"V @70%",rec:150,prog:["3x5","4x5","5x5","6x5","5x6","4x7"],cue:"Setting scapolare, fermo al petto 1\". 60 kg = 70% del max stimato (86 kg)."},
-      {id:"pu2",t:"C",n:"Spinte manubri 45°",sxr:"3×10",rec:120,prog:null,cue:"Petto alto, secondo stimolo del giorno. Inclinazione 45°."},
+      {id:"pu1",t:"B",n:"Panca Piana",sxr:"V @%",rec:180,prog:PROG_F4,target:KG_PANCA,cue:"Setting scapolare, fermo al petto 1\". Pausa al petto. Massimale stimato: 90 kg."},
+      {id:"pu2",t:"C",n:"Spinte manubri 45°",sxr:"3×10",rec:120,prog:null,cue:"Petto alto. Inclinazione 45°. Carico S.P."},
       {id:"pu3",t:"C",n:"Lento avanti (Military)",sxr:"3×10",rec:120,prog:null,cue:"Spalle. Glutei stretti, no inarcamento. Monitorare spalla sx."},
-      {id:"pu4",t:"P",n:"Alzate laterali cavo",sxr:"3×15",rec:60,prog:null,cue:"Deltoide laterale. Fino a parallelo spalle, cedimento."},
-      {id:"pu5",t:"C",n:"French Press EZ",sxr:"4×8",rec:120,prog:null,cue:"Tricipiti allungamento. Gomiti stretti al soffitto. Monitorare gomito."},
+      {id:"pu4",t:"C",n:"French Press EZ",sxr:"4×8",rec:120,prog:null,cue:"Tricipiti allungamento. Monitorare gomito."},
+      {id:"pu5",t:"P",n:"Alzate laterali cavo",sxr:"3×15",rec:60,prog:null,cue:"Deltoide laterale. Fino a parallelo, cedimento."},
       {id:"pu6",t:"P",n:"Push Down corda",sxr:"3×15",rec:60,prog:null,cue:"Tricipiti isolamento. Apri le mani in basso, cedimento."},
-      {id:"pu7",t:"P",n:"Croci ai cavi",sxr:"3×15",rec:60,prog:null,cue:"Isolamento petto, cedimento. Stringi in chiusura."}
+      {id:"pu7",t:"P",n:"Croci ai cavi",sxr:"3×15",rec:60,prog:null,cue:"Isolamento petto, stringi in chiusura. Cedimento."}
     ]
   },
   {
@@ -117,7 +129,7 @@ const SESSIONS = [
     name: "PULL",
     sub: "Dorso / Bicipiti (+ Stacco)",
     ex: [
-      {id:"pl1",t:"B",n:"Stacco da terra",sxr:"V @70%",rec:150,prog:["3x5","4x5","5x5","6x5","5x6","4x7"],cue:"Catena posteriore. 67.5 kg = 70% del max stimato (95 kg). Schiena neutra, bilanciere alle tibie."},
+      {id:"pl1",t:"B",n:"Stacco da terra",sxr:"V @%",rec:180,prog:PROG_F4,target:KG_STACCO,cue:"Catena posteriore. Schiena neutra, bilanciere alle tibie. Massimale stimato: 100 kg."},
       {id:"pl2",t:"C",n:"Lat Machine presa prona",sxr:"3×10",rec:120,prog:null,cue:"Gran dorsale, tirata allo sterno, scapole chiuse."},
       {id:"pl3",t:"C",n:"Rematore manubrio",sxr:"3×10",rec:120,prog:null,cue:"Dorso spessore. Gomito al fianco, scapola chiusa in alto."},
       {id:"pl4",t:"C",n:"Pulley basso",sxr:"3×10",rec:120,prog:null,cue:"Dorso accorciamento. Tirata verso l'ombelico."},
@@ -131,7 +143,7 @@ const SESSIONS = [
     name: "UPPER",
     sub: "Spalle / Petto / Dorso / Braccia",
     ex: [
-      {id:"up1",t:"B",n:"Military Press",sxr:"V @70%",rec:150,prog:["3x5","4x5","5x5","6x5","5x6","4x7"],cue:"Spalle fondamentale. 27.5 kg = 70% del max stimato (39 kg). Monitorare spalla sx."},
+      {id:"up1",t:"B",n:"Military Press",sxr:"V @%",rec:180,prog:PROG_F4,target:KG_MILITARY,cue:"Spalle fondamentale. Monitorare spalla sx. Massimale stimato: 44 kg."},
       {id:"up2",t:"C",n:"Panca inclinata manubri 30°",sxr:"3×10",rec:120,prog:null,cue:"2° stimolo petto clavicolare della settimana."},
       {id:"up3",t:"C",n:"Rematore T-bar / bilanciere",sxr:"3×10",rec:120,prog:null,cue:"2° stimolo dorso spessore."},
       {id:"up4",t:"C",n:"Alzate laterali manubri",sxr:"3×12",rec:90,prog:null,cue:"Deltoide laterale. Fino a parallelo spalle."},
@@ -145,12 +157,12 @@ const SESSIONS = [
     name: "LEGS",
     sub: "Gambe complete (unica seduta)",
     ex: [
-      {id:"le1",t:"B",n:"Squat",sxr:"V @70%",rec:150,prog:["3x5","4x5","5x5","6x5","5x6","4x7"],cue:"Parallelo minimo, petto alto. 102.5 kg = 70% del max stimato (146 kg)."},
+      {id:"le1",t:"B",n:"Squat",sxr:"V @%",rec:180,prog:PROG_F4,target:KG_SQUAT,cue:"Parallelo minimo, petto alto. Massimale stimato: 150 kg."},
       {id:"le2",t:"C",n:"Leg Press",sxr:"3×12",rec:120,prog:null,cue:"2° stimolo quadricipiti. Piedi medio-alti, profondità completa."},
       {id:"le3",t:"C",n:"Affondi dietro sul posto",sxr:"3×10",rec:120,prog:null,cue:"Unilaterale quad+glutei. Passo indietro, busto verticale."},
       {id:"le4",t:"C",n:"Stacco rumeno",sxr:"3×10",rec:120,prog:null,cue:"Femorali e glutei. Schiena neutra, peso ai talloni."},
       {id:"le5",t:"P",n:"Leg Curl",sxr:"4×12",rec:60,prog:null,cue:"Femorali isolamento. Contrazione massima in alto."},
-      {id:"le6",t:"P",n:"Leg Extension",sxr:"4×12",rec:60,prog:null,cue:"Quadricipiti isolamento. Estensione completa in alto."},
+      {id:"le6",t:"P",n:"Leg Extension",sxr:"4×12",rec:60,prog:null,cue:"Quadricipiti isolamento. Estensione completa."},
       {id:"le7",t:"P",n:"Calf in piedi",sxr:"4×15",rec:60,prog:null,cue:"Polpacci. Massima estensione, controllo in basso."}
     ]
   }
@@ -193,6 +205,10 @@ function renderScheda(){
     h+='<span class="arrow '+(open?"open":"")+'">▼</span>';
     h+='</div>';
     h+='<div class="card-body '+(open?"open":"")+'">';
+    if(ex.target){
+      const t=ex.target[state.week-1];
+      h+='<div class="target-kg">🎯 Carico target W'+state.week+': <b>'+t+(t==="TEST"?"":" kg")+'</b></div>';
+    }
     h+='<div class="card-info"><span>⏱ '+(ex.rec>=60?Math.floor(ex.rec/60)+"'":"")+(ex.rec%60?(ex.rec%60)+'"':"")+'</span><span>💡 '+ex.cue+'</span></div>';
     h+='<div class="input-row">';
     h+='<input type="number" placeholder="kg" value="'+(data.kg||"")+'" onchange="setEntry(\''+ex.id+'\','+state.week+',\'kg\',this.value);renderScheda()" inputmode="decimal"/>';
